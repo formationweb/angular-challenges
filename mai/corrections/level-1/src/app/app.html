@@ -1,0 +1,31 @@
+<main class="page">
+  <section class="game">
+    <div class="grid">
+      @for (cell of cells ; track $index) {
+       <div class="cell" [class.cell--player]="isPlayerCell($index)"></div>
+      }
+
+    </div>
+  </section>
+
+  <div class="controls">
+    <button (click)="move('up')">Haut</button>
+    <button (click)="move('left')">Left</button>
+    <button (click)="move('right')">Right</button>
+    <button (click)="move('down')">Bas</button>
+  </div>
+
+  <section class="status">
+    <p>Ligne {{ player().row + 1 }}</p>
+    <p>Colonne {{ player().col + 1 }}</p>
+  </section>
+
+  @if (isInCorner()) {
+    <p class="success">Le joueur est dans un coin.</p>
+  } @else {
+    <p>Deplace le joueur vers un coin.</p>
+  }
+
+  <button (click)="resetPlayer()">Reset</button>
+
+</main>
