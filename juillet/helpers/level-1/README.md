@@ -28,19 +28,3 @@ Quelques événements natifs utiles pour cet exercice :
 - `play` : la lecture démarre.
 - `pause` : la lecture est mise en pause.
 
-## Récupérer la vidéo avec Angular
-
-Vous pouvez placer une référence locale sur l’élément vidéo :
-
-```html
-<video #videoRef controls></video>
-```
-
-Puis la récupérer dans le composant avec `viewChild()` :
-
-```ts
-videoEl = viewChild<ElementRef<HTMLVideoElement>>('videoRef');
-```
-
-La méthode `nativeElement` permet ensuite d’accéder à l’élément vidéo.
-
