@@ -1,0 +1,16 @@
+<div class="search-box">
+  <label class="search-field" for="resource-search">
+    <span>{{ label() }}</span>
+    <input
+      id="resource-search"
+      type="search"
+      name="search"
+      [(ngModel)]="localQuery"
+      (ngModelChange)="updateQuery($event)"
+      [placeholder]="placeholder()"
+      autocomplete="off"
+    />
+  </label>
+
+  <button type="button" (click)="clearQuery()" [disabled]="!localQuery()">Effacer</button>
+</div>

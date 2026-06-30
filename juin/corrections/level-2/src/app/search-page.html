@@ -1,0 +1,50 @@
+<main class="search-page">
+  <section class="search-panel" aria-labelledby="page-title">
+    <div class="intro">
+      <p class="eyebrow">Niveau medium</p>
+      <h1 id="page-title">Recherche de ressources Angular</h1>
+      <p>Filtrez par nom, categorie ou description.</p>
+    </div>
+
+    <div class="search-controls">
+      <label class="search-field" for="resource-search">
+        <span>Recherche</span>
+        <input
+          id="resource-search"
+          type="search"
+          name="search"
+          [(ngModel)]="searchModel"
+          placeholder="Ex. architecture"
+          autocomplete="off"
+          aria-describedby="search-summary"
+        />
+      </label>
+
+      <button type="button" (click)="resetSearch()" [disabled]="!hasSearchTerm()">Effacer</button>
+    </div>
+
+    <p id="search-summary" class="summary" aria-live="polite">
+      @if (hasSearchTerm()) {
+        {{ resultCount() }} resultat(s) pour "{{ searchModel() }}"
+      } @else {
+        {{ products().length }} ressources disponibles
+      }
+    </p>
+
+    @if (resultCount() > 0) {
+      <ul class="results" aria-label="Resultats de recherche">
+        @for (product of filteredProducts(); track product.id) {
+          <li>
+            <div>
+              <strong>{{ product.name }}</strong>
+              <p>{{ product.description }}</p>
+            </div>
+            <span>{{ product.category }}</span>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="empty-state">Aucune ressource ne correspond a cette recherche.</p>
+    }
+  </section>
+</main>

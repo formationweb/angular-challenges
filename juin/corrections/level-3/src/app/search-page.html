@@ -1,0 +1,72 @@
+<main class="search-page">
+  <section class="search-panel" aria-labelledby="page-title">
+    <div class="intro">
+      <p class="eyebrow">Niveau senior</p>
+      <h1 id="page-title">Recherche de ressources Angular</h1>
+      <p>Filtrez par recherche, categorie, statut et ordre d'affichage.</p>
+    </div>
+
+    <app-search-box
+      [query]="searchTerm()"
+      label="Recherche"
+      placeholder="Ex. architecture"
+      [debounceMs]="300"
+      (queryChange)="updateSearchTerm($event)"
+    />
+
+    <div class="filters" aria-label="Filtres de recherche">
+      <label>
+        <span>Categorie</span>
+        <select [value]="selectedCategory()" (change)="updateCategory($any($event.target).value)">
+          @for (category of categories(); track category) {
+            <option [value]="category">{{ category }}</option>
+          }
+        </select>
+      </label>
+
+      <label>
+        <span>Tri</span>
+        <select [value]="sortOrder()" (change)="updateSortOrder($any($event.target).value)">
+          <option value="name-asc">Nom A-Z</option>
+          <option value="name-desc">Nom Z-A</option>
+        </select>
+      </label>
+
+      <button class="ghost-button" type="button" (click)="simulateError()">Simuler une erreur</button>
+    </div>
+
+    <p id="search-summary" class="summary" aria-live="polite">
+      @if (hasSearchTerm()) {
+        {{ resultCount() }} resultat(s) pour "{{ searchTerm() }}"
+      } @else {
+        {{ products().length }} ressources disponibles
+      }
+    </p>
+
+    @if (isLoading()) {
+      <p class="state">Chargement des ressources...</p>
+    } @else if (hasError()) {
+      <div class="state error-state" role="alert">
+        <p>Impossible de charger les ressources.</p>
+        <button type="button" (click)="retryLoading()">Reessayer</button>
+      </div>
+    } @else if (resultCount() > 0) {
+      <ul class="results" aria-label="Resultats de recherche">
+        @for (product of filteredProducts(); track product.id) {
+          <li>
+            <div>
+              <strong>{{ product.name }}</strong>
+              <p>{{ product.description }}</p>
+            </div>
+            <div class="meta">
+              <span>{{ product.category }}</span>
+              <small>{{ product.status }}</small>
+            </div>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="empty-state">Aucune ressource ne correspond a cette recherche.</p>
+    }
+  </section>
+</main>

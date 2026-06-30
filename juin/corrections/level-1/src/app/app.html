@@ -1,0 +1,33 @@
+<main class="search-page">
+  <section class="search-panel" aria-labelledby="page-title">
+    <div class="intro">
+      <p class="eyebrow">Niveau junior</p>
+      <h1 id="page-title">Recherche de ressources Angular</h1>
+      <p>Filtrez la liste avec une recherche simple sur le nom.</p>
+    </div>
+
+    <label class="search-field">
+      <span>Recherche</span>
+      <input
+        type="search"
+        name="search"
+        [(ngModel)]="searchModel"
+        placeholder="Ex. signals"
+        autocomplete="off"
+      />
+    </label>
+
+    @if (filteredProducts().length > 0) {
+      <ul class="results" aria-label="Resultats de recherche">
+        @for (product of filteredProducts(); track product.id) {
+          <li>
+            <strong>{{ product.name }}</strong>
+            <span>{{ product.category }}</span>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="empty-state">Aucun resultat ne correspond a votre recherche.</p>
+    }
+  </section>
+</main>
