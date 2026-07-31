@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  min-height: 100dvh;
+  font-family: Arial, sans-serif;
+  color: #1f2937;
+  background: #f6f7f9;
+}
+
+.page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
